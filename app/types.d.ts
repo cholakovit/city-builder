@@ -59,4 +59,8 @@ declare global {
     height?: string;
   }
 
+  type MermaidProps = {
+    chart: string;
+  };
+
 }
