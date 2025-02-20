@@ -9,6 +9,7 @@ import TextInput from "@/app/components/Atomic/TextInput";
 import RangeInput from "@/app/components/Atomic/RangeInput";
 import { useHouseActions } from "@/app/helper/hooks";
 
+
 const HouseBuilderField: React.FC<HouseProps> = ({ house, updateHouse, duplicateHouse, removeHouse }) => {
 
   const { handleChange, handleDuplicate, handleRemove } = useHouseActions({

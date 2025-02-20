@@ -104,14 +104,11 @@ export const useHouseActions = ({ house, updateHouse, duplicateHouse, removeHous
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { id, value } = event.target;
-
-      // ✅ Extracts "name", "floors", or "color" correctly
-      const key = id.split("-").slice(-1)[0] as keyof House;
-
-      // ✅ Convert floors to a number
+      const key = id.includes("floors") ? "floors" : id.includes("color") ? "color" : "name";
+  
       const newValue = key === "floors" ? Number(value) : value;
-
-      updateHouse(house.id, key, newValue);
+  
+      updateHouse(house.id, key as keyof House, newValue);
     },
     [updateHouse, house.id]
   );
