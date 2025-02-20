@@ -1,0 +1,39 @@
+.city-container {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    gap: 20px;
+    border-radius: 15px;
+    width: fit-content; /* ✅ Only as wide as the houses */
+    padding: 60px 20px 20px 20px;
+}
+
+/* Ensure wrapper does not add extra space */
+.city-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 15px;
+    background-color: #ffe8ce;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    margin-top: 30px;
+}
+
+
+/* Custom thin and rounded scrollbar */
+.city-wrapper::-webkit-scrollbar {
+    height: 5px; /* ✅ Makes scrollbar thinner */
+    border-radius: 10px; /* ✅ Rounds scrollbar edges */
+}
+
+.city-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4); /* ✅ Darker for better visibility */
+    border-radius: 10px; /* ✅ Rounded scrollbar */
+}
+
+.city-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* ✅ Lighter track */
+    border-radius: 10px; /* ✅ Ensures track also has rounded corners */
+}

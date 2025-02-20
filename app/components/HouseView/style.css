@@ -1,0 +1,55 @@
+.house {
+  position: relative;
+  width: 80px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: flex-end; /* ✅ Forces all houses to "sit" on the same ground level */
+}
+
+
+.body {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start; /* ✅ Keeps windows at the top */
+  background-color: inherit;
+  position: relative;
+  flex-grow: 0; /* ✅ Prevents extra empty space */
+  min-height: fit-content; /* ✅ Prevents unnecessary stretching */
+  padding-bottom: 40px; /* ✅ Ensures space for the door */
+}
+
+.door {
+  width: 30px;
+  height: 40px;
+  background-color: black;
+  border: 2px solid black;
+  position: absolute;
+  bottom: 0; /* ✅ Forces door to be at the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.roof {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 40px solid black;
+  position: absolute;
+  top: -40px;
+}
+
+.window {
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border: 2px solid black;
+  margin: 10px 5px;
+}
+
+

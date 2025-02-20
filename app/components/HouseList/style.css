@@ -1,0 +1,53 @@
+.house-list {
+    width: 100%;
+    max-width: 550px; /* ✅ Increased max width */
+    padding: 20px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: Adjust width based on screen size */
+@media (min-width: 1024px) { /* lg screens */
+    .house-list {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1280px) { /* xl screens */
+    .house-list {
+        max-width: 700px;
+    }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: #ddd;
+  height: 5px;
+  border-radius: 5px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px; /* ✅ Makes the scrollbar thin */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* ✅ Gives a subtle scroll thumb color */
+    border-radius: 10px; /* ✅ Makes the scrollbar thumb rounded */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* ✅ Lighter background for the track */
+    border-radius: 10px; /* ✅ Matches the border-radius of the article */
+}
+
