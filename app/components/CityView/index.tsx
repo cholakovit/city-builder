@@ -10,7 +10,8 @@ export default function CityView({ houses }: CityViewProps) {
   return (
     <div className="city-wrapper" ref={scrollRef}>
       <article className="city-container">
-        {houses.map((house) => (
+        {/* ✅ Convert object to array before mapping */}
+        {Object.values(houses).map((house) => (
           <HouseView key={house.id} house={house} />
         ))}
       </article>

@@ -19,12 +19,12 @@ declare global {
   };
 
   type CityViewProps = {
-    houses: House[];
+    houses: { [id: number]: House };
   };
 
   type HouseListProps = {
-    houses: House[];
-    setHouses: Dispatch<SetStateAction<House[]>>;
+    houses: { [id: number]: House };
+    setHouses: Dispatch<React.SetStateAction<{ [id: number]: House }>>;
   };
 
   type BaseInputProps = & InputHTMLAttributes<HTMLInputElement> &{

@@ -9,67 +9,80 @@ export const useLoadHouse = (setHouses: (houses: House[]) => void) => {
   }, [setHouses]);
 };
 
-export const useSaveHouses = (houses: House[]) => {
+export const useSaveHouses = (houses: { [id: number]: House }) => {
   useEffect(() => {
     localStorage.setItem("houses", JSON.stringify(houses));
   }, [houses]);
 };
 
+
 export const useAddHouse = (
-  setHouses: (callback: (prev: House[]) => House[]) => void
+  setHouses: React.Dispatch<React.SetStateAction<{ [id: number]: House }>>
 ) => {
   return () => {
-    setHouses((prev: House[]) => [
-      ...prev,
-      {
-        id: Date.now(),
-        name: `House ${prev.length + 1}`,
-        floors: 1,
-        color: "Orange",
-      },
-    ]);
-  };
-};
-
-export const useUpdateHouse = (
-  setHouses: (callback: (prev: House[]) => House[]) => void
-) => {
-  return <K extends keyof House>(id: number, key: K, value: House[K]) => {
-    setHouses((prev: House[]) =>
-      prev.map((house: House) =>
-        house.id === id ? { ...house, [key]: value } : house
-      )
-    );
-  };
-};
-
-export const useDuplicateHouse = (
-  setHouses: (callback: (prev: House[]) => House[]) => void
-) => {
-  return (id: number) => {
-    setHouses((prev: House[]) => {
-      const houseToCopy = prev.find((house) => house.id === id);
-      return houseToCopy
-        ? [
-            ...prev,
-            {
-              ...houseToCopy,
-              id: Date.now(),
-              name: houseToCopy.name + " (Copy)",
-            },
-          ]
-        : prev;
+    setHouses((prev) => {
+      const newId = Date.now(); // Generate unique ID
+      return {
+        ...prev,
+        [newId]: {
+          id: newId,
+          name: `House ${Object.keys(prev).length + 1}`,
+          floors: 1,
+          color: "Orange",
+        },
+      };
     });
   };
 };
 
-export const useRemoveHouse = (
-  setHouses: (callback: (prev: House[]) => House[]) => void
+export const useUpdateHouse = (
+  setHouses: React.Dispatch<React.SetStateAction<{ [id: number]: House }>>
+) => {
+  return <K extends keyof House>(id: number, key: K, value: House[K]) => {
+    setHouses((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id], // Keep other properties
+        [key]: value, // Update only the specified key
+      },
+    }));
+  };
+};
+
+
+export const useDuplicateHouse = (
+  setHouses: React.Dispatch<React.SetStateAction<{ [id: number]: House }>>
 ) => {
   return (id: number) => {
-    setHouses((prev: House[]) =>
-      prev.filter((house: House) => house.id !== id)
-    );
+    setHouses((prev) => {
+      const houseToCopy = prev[id];
+
+      if (!houseToCopy) return prev; // If the house doesn't exist, return previous state
+
+      const newId = Date.now(); // Generate a unique ID for the new house
+
+      return {
+        ...prev,
+        [newId]: {
+          ...houseToCopy,
+          id: newId,
+          name: houseToCopy.name + " (Copy)",
+        },
+      };
+    });
+  };
+};
+
+
+export const useRemoveHouse = (
+  setHouses: React.Dispatch<React.SetStateAction<{ [id: number]: House }>>
+) => {
+  return (id: number) => {
+    setHouses((prev) => {
+      const newHouses = { ...prev }; // Create a shallow copy of the houses object
+      delete newHouses[id]; // Remove the house with the given ID
+      return newHouses;
+    });
   };
 };
 
@@ -100,13 +113,12 @@ export function useHorizontalScroll<T extends HTMLElement>() {
 }
 
 export const useHouseActions = ({ house, updateHouse, duplicateHouse, removeHouse }: HouseProps) => {
-  // ✅ Single handler for all inputs
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { id, value } = event.target;
-      const key = id.includes("floors") ? "floors" : id.includes("color") ? "color" : "name";
   
-      const newValue = key === "floors" ? Number(value) : value;
+      const key = id.includes("floors") ? "floors" : id.includes("color") ? "color" : "name";
+      const newValue = key === "floors" ? Number(value) : value; // ✅ Ensure numbers for floors
   
       updateHouse(house.id, key as keyof House, newValue);
     },

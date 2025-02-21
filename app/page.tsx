@@ -9,10 +9,10 @@ import { INITIAL_HOUSES } from "@/app/helper/constants";
 import { useLoadHouse, useSaveHouses } from "@/app/helper/hooks";
 
 export default function Home() {
-  const [houses, setHouses] = useState<House[]>(INITIAL_HOUSES);
+  const [houses, setHouses] = useState(INITIAL_HOUSES);
 
-  useLoadHouse(setHouses); // ✅ Load houses on mount
-  useSaveHouses(houses); // ✅ Save houses when state changes
+  useLoadHouse(setHouses);
+  useSaveHouses(houses);
 
   return (
     <>
@@ -24,11 +24,9 @@ export default function Home() {
         </section>
 
         <section className="w-full lg:w-2/3">
-
-        <section className="w-full">
-          <Weather />
-        </section>
-
+          <section className="w-full">
+            <Weather />
+          </section>
           <CityView houses={houses} />
         </section>
 

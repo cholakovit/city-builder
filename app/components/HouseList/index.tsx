@@ -21,16 +21,20 @@ export default function HouseList({ houses, setHouses }: HouseListProps) {
   return (
     <article className="house-list p-6 bg-gray-100 shadow-lg rounded-xl max-h-[800px] overflow-y-auto custom-scrollbar">
       <h2 className="text-lg font-semibold mb-4">🏡 Houses List</h2>
-      {houses.map((house: House) => (
+      
+      {/** ✅ Convert object to an array before mapping */}
+      {Object.values(houses).map((house) => (
         <HouseBuilderField
-          key={house.id}
+          key={String(house.id)}  // ✅ Convert id to string to avoid key issues
           house={house}
           updateHouse={updateHouse}
           duplicateHouse={duplicateHouse}
           removeHouse={removeHouse}
         />
       ))}
+
       <Button onClick={addHouse} icon={<FaHome />} label="Build a new house" />
     </article>
   );
 }
+
